@@ -1,31 +1,24 @@
-import pkg from 'express-validator';
 import Client from '../../models/client.js';
 import widgets from 'qrcode';
+import pkg from 'unique-names-generator';
+
+const { uniqueNamesGenerator, adjectives, colors, animals } = pkg;
 
 const { toString, toDataURL } = widgets;
 
-const { validationResult} = pkg;
 
 const generateQR = async (req, res, next) => {
 
-const errors = validationResult(req);
 
-if (!errors.isEmpty()) {
-    return res.json({
-    message: 'Invalid input.'
-    });
-}
+const randomName = uniqueNamesGenerator({ dictionaries: [adjectives, colors, animals] });
 
-const {
-    name,
-    dynamicData,
-} = req.body;
+const dynamicData = randomName + Date.now();
 
 // Converting the data into String format
-let stringdata = JSON.stringify({name, dynamicData})
+let stringdata = JSON.stringify(dynamicData)
 
 // Print the QR code to terminal
-const clientID = toString(stringdata,{type:'terminal'},
+let clientID = toString(stringdata,{type:'utf-8'}, // terminal, svg, utf-8, png
 					function (err, QRcode) {
 
 	if(err) return console.log("error occurred")
@@ -33,14 +26,15 @@ const clientID = toString(stringdata,{type:'terminal'},
 	// Printing the generated code
 	console.log(QRcode)
     return QRcode;
-})
+});
 
 // Converting the data into base64
 toDataURL(stringdata, function (err, code) {
 	if(err) return console.log("error occurred")
 
 	// Printing the code
-	console.log(code)
+	// console.log(code)
+    return code;
 })
 
 let generateQRCode;
@@ -48,7 +42,7 @@ let generateQRCode;
 try {
 
     generateQRCode = new Client({
-        clientID,
+        clientID: JSON.stringify(clientID),
         photos: [],
         photosEdited: []
     })

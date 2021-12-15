@@ -30,4 +30,4 @@ app.use(json());
 
 app.use('/odaiabunicii/api', odaiaBunicii);
 
-app.listen(5050);
+app.listen(5050, () => {console.log('portul este deschis 5050')});
