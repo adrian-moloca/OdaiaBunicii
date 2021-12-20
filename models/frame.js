@@ -1,16 +1,14 @@
 import pkg from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
 
-const { Schema, model } = pkg;
+const { Schema} = pkg;
 
 const frameSchema = new Schema({
-        label: {type: String, required: true},
-        source: {type: String, required: true},
-        type: {type: String, required: true},
-        dim: {type: String, required: true},
-        price: {type: String, required: true},
+    label: {type: String, required: true, default: ''},
+    source: {type: String, required: true, default: ''},
+    type: {type: String, required: true, default: ''},
+    dim: {type: String, required: true, default: ''},
+    price: {type: String, required: true, default: ''},
 });
 
-frameSchema.plugin(uniqueValidator);
-
-export default model('Frame', frameSchema);
+export default frameSchema;
