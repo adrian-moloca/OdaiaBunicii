@@ -1,51 +1,42 @@
 import Client from '../../models/client.js';
 import widgets from 'qrcode';
-import pkg from 'unique-names-generator';
+import { uniqueNamesGenerator, adjectives, colors, animals } from 'unique-names-generator';
 
-const { uniqueNamesGenerator, adjectives, colors, animals } = pkg;
+const upperCaseName = uniqueNamesGenerator({
+    dictionaries: [colors, adjectives, animals],
+    style: 'upperCase',
+});
+
+const capitalizedName = uniqueNamesGenerator({
+    dictionaries: [adjectives, colors, animals],
+    style: 'capital',
+});
 
 const { toString, toDataURL } = widgets;
 
 
 const generateQR = async (req, res, next) => {
 
-
-const randomName = uniqueNamesGenerator({ dictionaries: [adjectives, colors, animals] });
-
-const dynamicData = randomName + Date.now();
+const dynamicData = Date.now();
 
 // Converting the data into String format
-let stringdata = JSON.stringify(dynamicData)
-
-// Print the QR code to terminal
-let clientID = toString(stringdata,{type:'utf-8'}, // terminal, svg, utf-8, png
-					function (err, QRcode) {
-
-	if(err) return console.log("error occurred")
-
-	// Printing the generated code
-	console.log(QRcode)
-    return QRcode;
-});
-
-// Converting the data into base64
-toDataURL(stringdata, function (err, code) {
-	if(err) return console.log("error occurred")
-
-	// Printing the code
-	// console.log(code)
-    return code;
-})
+let stringdata = JSON.stringify(dynamicData+upperCaseName+capitalizedName);
 
 let generateQRCode;
+let QRCode;
 
 try {
 
+
     generateQRCode = new Client({
-        clientID: JSON.stringify(clientID),
+        clientID: dynamicData,
         photos: [],
-        photosEdited: []
+        photosEdited: [],
+        QRcodeString: toString(stringdata,{type:'terminal'},(QRcode) => QRcode),
+        isAdmin: false,
     })
+
+    toDataURL(stringdata,(err, QRcode) => QRCode = QRcode)
 
     await generateQRCode.save();
 
@@ -56,6 +47,7 @@ try {
 res.status(201).json({
     message: 'New user added!',
     user: generateQRCode,
+    QRCode: QRCode,
 });
 };
 

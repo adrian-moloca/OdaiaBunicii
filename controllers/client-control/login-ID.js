@@ -4,10 +4,10 @@ const loginID = async (req, res, next) => {
 
   const {
     clientID
-  } = req.body
-
+  } = req.body;
   
-  let existingClient
+  let existingClient;
+
   try {
 
     existingClient = await Client.findOne({
