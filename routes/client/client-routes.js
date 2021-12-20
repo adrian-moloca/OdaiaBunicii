@@ -14,6 +14,6 @@ clientRoute.patch('/add-photos/:uid', addPhotos);
 clientRoute.patch('/add-products/:uid', addProducts);
 clientRoute.get('/existing-cart/:uid', existingCart);
 clientRoute.post('/new-order/:uid', newOrder);
-clientRoute.post('/liked-photos/:uid', likedPhotos);
+clientRoute.get('/liked-photos/:uid', likedPhotos);
 
 export default clientRoute;
