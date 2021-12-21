@@ -1,6 +1,6 @@
 import Client from '../../models/client.js';
 
-const likedPhotos = async (req, res, next) => {
+const sessionPhotos = async (req, res, next) => {
   const userID = req.params.uid;
   
   let existingClient;
@@ -20,8 +20,8 @@ const likedPhotos = async (req, res, next) => {
 
   res.status(200).json({
     message: 'Client found',
-    likedPhotos: existingClient.likedPhotos,
+    sessionPhotos: existingClient.sessionPhotos,
   });
 };
 
-export default likedPhotos;
+export default sessionPhotos;

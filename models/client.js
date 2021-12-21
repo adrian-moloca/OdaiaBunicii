@@ -5,12 +5,10 @@ import frameSchema from './frame.js';
 const { Schema, model } = pkg;
 
 const ClientSchema = new Schema({
-        clientID: {type: String, required: true},
-        likedPhotos: [{base64Image: {type: String}, fileName: {type: String}, height: {type: Number}, width: {type: Number}, uri: {type: String}, isSelected: {type: Boolean, default: false}}],
-        photosEdited: [{base64Image : {type: String}, frame: {type: frameSchema}, numberOfTimes: {type: Number}}],
-        QRcodeString: {type: String},
-        isAdmin: {type: Boolean, default: false},
-        order: [{base64Image : {type: String}, frame: {type: frameSchema}, numberOfTimes: {type: Number}}],
+        clientID: {type: String},
+        sessionPhotos: [{b64Image: {type: String, default: ''}, fileName: {type: String, default: ''}, height: {type: Number, default: 0}, width: {type: Number, default: 0}, uri: {type: String, default: ''}, isSelected: {type: Boolean, default: false}}],
+        editedPhotos: [{b64Image : {type: String, default: ''}, frame: {type: frameSchema}, numberOfItems: {type: Number, default: 1}}],
+        QRcodeString: {type: String, default: ''},
 });
 
 ClientSchema.plugin(uniqueValidator);

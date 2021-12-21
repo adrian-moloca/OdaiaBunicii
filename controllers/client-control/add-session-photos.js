@@ -1,9 +1,9 @@
 import Client from '../../models/client.js';
 
-const addPhotos = async (req, res, next) => {
+const addSessionPhotos = async (req, res, next) => {
   const userID = req.params.uid;
   const {
-    photos
+    sessionPhotos
   } = req.body;
   
   let existingClient;
@@ -11,8 +11,7 @@ const addPhotos = async (req, res, next) => {
   try {
     existingClient = await Client.findOne({clientID: userID});
     if(existingClient) {
-        existingClient.photos = new Array();
-        existingClient.photos = photos;
+        existingClient.sessionPhotos.concat(sessionPhotos);
     }
   } catch (error) {
     return res.status(500).json({
@@ -29,8 +28,8 @@ try {
   
 res.status(200).json({
     message: 'Photos added',
-    user: existingClient
+    sessionPhotos: existingClient.sessionPhotos
   });
 };
 
-export default addPhotos;
+export default addSessionPhotos;

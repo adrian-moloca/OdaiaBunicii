@@ -1,26 +1,33 @@
 import Client from '../../models/client.js';
+import Order from '../../models/order.js';
 
 const newOrder = async (req, res, next) => {
+    const userID = req.params.uid;
+    const { myOrder, contactDetails } = req.body;
+
+    let existingClient;
+    let newOrder;
 
 try {
-    generateQRCode = new Client({
-        clientID: dynamicData,
-        photos: [],
-        photosEdited: [],
-        QRcodeString: toString(stringdata,{type:'terminal'},(QRcode) => QRcode),
-        isAdmin: false,
-    })
+    existingClient = await Client.findOne({clientID: userID});
+    
+    if(existingClient) {
+        newOrder = new Order({
+            myOrder: myOrder,
+            contactDetails: contactDetails,
+            clientID: userID,
+        })
+    }
 
-    await generateQRCode.save();
+    await newOrder.save();
 
 } catch (err) {
-    res.status(500).json("Registration has failed!")
+    res.status(500).json("Order failed!")
 }
 
 res.status(201).json({
-    message: 'New user added!',
-    user: generateQRCode,
-    QRCode: QRCode,
+    message: 'New order added!',
+    order: newOrder,
 });
 };
 
