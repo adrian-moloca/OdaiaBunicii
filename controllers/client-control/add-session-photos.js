@@ -11,7 +11,7 @@ const addSessionPhotos = async (req, res, next) => {
   try {
     existingClient = await Client.findOne({clientID: userID});
     if(existingClient) {
-        existingClient.sessionPhotos.concat(sessionPhotos);
+        existingClient.sessionPhotos = [...existingClient.sessionPhotos, ...sessionPhotos];
     }
   } catch (error) {
     return res.status(500).json({

@@ -3,7 +3,7 @@ import Client from '../../models/client.js';
 const addProducts = async (req, res, next) => {
   const userID = req.params.uid;
   const {
-    b64Image,
+    base64,
     frame,
     numberOfItems
   } = req.body;
@@ -15,7 +15,7 @@ const addProducts = async (req, res, next) => {
     existingClient = await Client.findOne({clientID: userID});
 
     if(existingClient) {
-        existingClient.editedPhotos.push({b64Image: b64Image, frame: frame, numberOfItems: numberOfItems})
+        existingClient.editedPhotos.push({base64: base64, frame: frame, numberOfItems: numberOfItems})
     }
 
   } catch (error) {
