@@ -10,7 +10,11 @@ const addProducts = async (req, res, next) => {
 
   try {
 
-    let existingClient = await Client.updateOne({clientID: userID}, {$push: {editedPhotos: [{base64: base64, frame: frame, numberOfItems: numberOfItems}]}});
+    // let existingClient = await Client.updateOne({clientID: userID}, {$push: {editedPhotos: [{base64: base64, frame: frame, numberOfItems: numberOfItems}]}});
+    let existingClient = await Client.findOne({cliendID: userID});
+    existingClient.update({$push: {editedPhotos: {base64: base64, frame: frame, numberOfItems: numberOfItems}}})
+
+    console.log(existingClient);
 
     res.status(200).json({
       message: 'Product added',
