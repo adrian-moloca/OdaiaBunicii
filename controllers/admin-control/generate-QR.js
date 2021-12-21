@@ -34,10 +34,9 @@ try {
 
     generateQRCode = new Client({
         clientID: dynamicData,
-        photos: [],
-        photosEdited: [],
+        sessionPhotos: [],
+        editedPhotos: [],
         QRcodeString: toString(stringdata,{type:'terminal'},(QRcode) => QRcode),
-        isAdmin: false,
     })
 
     toDataURL(stringdata,(err, QRcode) => QRCode = QRcode)
