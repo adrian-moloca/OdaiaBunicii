@@ -25,7 +25,7 @@ const addSessionPhotos = async (req, res, next) => {
 
   res.status(200).json({
     message: 'Photos added',
-    sessionPhotos: existingClient.sessionPhotos,
+    sessionPhotos: await existingClient.sessionPhotos,
   });
 };
 

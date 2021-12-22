@@ -12,14 +12,12 @@ const addProducts = async (req, res, next) => {
     numberOfItems
   } = req.body;
 
-  let newItem = [{base64: base64, label: label, source: source, type: type, dim: dim, price: price, numberOfItems: numberOfItems}];
-
   let existingClient;
 
   try {
     existingClient = await Client.findOne({clientID: userID});
     if(existingClient) {
-      existingClient.editedPhotos = [...newItem];
+      existingClient.editedPhotos.push({base64: base64, label: label, source: source, type: type, dim: dim, price: price, numberOfItems: numberOfItems});
     }
 
     await existingClient.save();
@@ -32,7 +30,7 @@ const addProducts = async (req, res, next) => {
 
   res.status(200).json({
     message: 'Product added',
-    client: existingClient.editedPhotos,
+    editedPhotos: await existingClient.editedPhotos,
   });
 
 };
