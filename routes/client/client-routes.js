@@ -9,7 +9,7 @@ import sessionPhotos from '../../controllers/client-control/get-session-photos.j
 
 const clientRoute = Router();
 
-clientRoute.post('/login-id', [check('clientID').isLength({ min: 10 })], loginID);
+clientRoute.post('/login-id', [check('clientID').isLength({ min: 12 })], loginID);
 clientRoute.patch('/add-session-photos/:uid', addSessionPhotos);
 clientRoute.patch('/add-products/:uid', addProducts);
 clientRoute.get('/get-existing-cart/:uid', existingCart);
