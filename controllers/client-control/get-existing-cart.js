@@ -20,7 +20,7 @@ const existingCart = async (req, res, next) => {
 
   res.status(200).json({
     message: 'Client found',
-    photosEdited: existingClient.photosEdited,
+    editedPhotos: await existingClient.editedPhotos,
   });
 };
 

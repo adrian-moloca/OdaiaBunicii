@@ -21,17 +21,14 @@ const { toString, toDataURL } = widgets;
 
 const generateQR = async (req, res, next) => {
 
-const dynamicData = Date.now();
+const dynamicData = Date.now();s
 
-// Converting the data into String format
 let stringdata = JSON.stringify(dynamicData+upperCaseName+capitalizedName+randomName);
 
 let generateQRCode;
 let QRCode;
 
 try {
-
-
     generateQRCode = new Client({
         clientID: dynamicData,
         sessionPhotos: [],

@@ -14,19 +14,15 @@ const loginAdmin = async (req, res, next) => {
         adminID: adminID
     });
 
-    if (!existingAdmin)
-      return res.status(401).json({
-        message: 'No account found .'
-      });
   } catch (error) {
-    return res.json({
-      error
-    });
+      return res.json({
+        error
+      });
   };
 
   res.json({
     message: 'Welcome back ADMIN!',
-    admin: existingAdmin
+    admin: existingAdmin,
   });
 };
 
