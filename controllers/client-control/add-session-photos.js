@@ -5,20 +5,28 @@ const addSessionPhotos = async (req, res, next) => {
   const {
     sessionPhotos
   } = req.body;
+
+  let existingClient;
   
   try {
-  console.log(sessionPhotos)
-     let existingClient = await Client.updateOne({clientID: userID}, {$set: {sessionPhotos: [...sessionPhotos]}});
-   res.status(200).json({
-      message: 'Photos added',
-      user: existingClient,
-      sessionPhotos: sessionPhotos,
-    });
+    existingClient = await Client.findOne({clientID: userID});
+    
+    if(existingClient) {
+      existingClient.sessionPhotos = [...sessionPhotos];
+    }
+
+    await existingClient.save();
+
   } catch (error) {
     return res.status(500).json({
       error
     });
   };
+
+  res.status(200).json({
+    message: 'Photos added',
+    sessionPhotos: existingClient.sessionPhotos,
+  });
 };
 
 export default addSessionPhotos;
