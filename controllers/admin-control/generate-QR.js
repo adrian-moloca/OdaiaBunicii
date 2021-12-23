@@ -21,7 +21,7 @@ const { toString, toDataURL } = widgets;
 
 const generateQR = async (req, res, next) => {
 
-const dynamicData = Date.now();s
+const dynamicData = Date.now();
 
 let stringdata = JSON.stringify(dynamicData+upperCaseName+capitalizedName+randomName);
 

@@ -3,7 +3,7 @@ import Order from '../../models/order.js';
 
 const newOrder = async (req, res, next) => {
     const userID = req.params.uid;
-    const { myOrder, contactDetails } = req.body;
+    const { order, contactDetails } = req.body;
 
     let existingClient;
     let newOrder;
@@ -13,7 +13,7 @@ try {
     
     if(existingClient) {
         newOrder = new Order({
-            myOrder: myOrder,
+            order: order,
             contactDetails: contactDetails,
             clientID: userID,
         })
