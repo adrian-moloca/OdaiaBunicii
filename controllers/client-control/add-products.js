@@ -19,7 +19,7 @@ const addProducts = async (req, res, next) => {
   try {
     existingClient = await Client.findOne({clientID: userID});
     if(existingClient) {
-      existingClient.editedPhotos = [...newItem];
+      existingClient.editedPhotos.concat(newItem);
     }
 
     await existingClient.save();
