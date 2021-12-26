@@ -15,6 +15,6 @@ adminRoute.post('/session-id/:uid', [check('clientID').isLength({ min: 12 })], s
 adminRoute.get('/get-existing-order/:uid', existingOrder);
 adminRoute.post('/login-admin', [check('adminID').isLength({min: 4})], loginAdmin);
 adminRoute.post('/generate-pdf', generatePDF);
-adminRoute.get('/get-plansa/:uid', getScaled);
+adminRoute.get('/get-plansa', getScaled);
 
 export default adminRoute;
